@@ -39,7 +39,8 @@ public class ChatController {
     @GetMapping("/explain")
     public String explain(
             @RequestParam String topic,
-            @RequestParam(defaultValue = "beginner") String level) {
+            @RequestParam(defaultValue = "beginner") String level,
+            @RequestParam String language) {
 
         return chatClient
                 .prompt()
@@ -49,7 +50,7 @@ public class ChatController {
                         """)
                 .user(user -> user
                         .text("""
-                                Explain {topic} to a {level} developer.
+                                Explain {topic} to a {level} developer and choose {language} for explaining.
 
                                 Include:
                                 1. A simple definition
@@ -58,7 +59,8 @@ public class ChatController {
                                 4. One common mistake
                                 """)
                         .param("topic", topic)
-                        .param("level", level))
+                        .param("level", level)
+                        .param("language", language))
                 .call()
                 .content();
     }
