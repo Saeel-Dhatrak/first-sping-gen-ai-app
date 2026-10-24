@@ -24,6 +24,12 @@ public class ChatController {
     public String chat(@RequestParam String message){
         return chatClient
                 .prompt()
+                .system("""
+                        You are a senior Java and Spring Boot developer.
+                        Give clear, practical and technically accurate answers.
+                        When explaining code, prefer modern Java and Spring Boot practices.
+                        Keep answers concise unless the user asks for detailed explanations.
+                        """)
                 .user(message)
                 .call()
                 .content();
